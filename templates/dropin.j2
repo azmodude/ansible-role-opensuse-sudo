@@ -1,0 +1,3 @@
+{% for item in sudoers %}
+%{{ item.name }} ALL=(ALL){% if item.nopasswd %}NOPASSWD:{% endif %} ALL
+{% endfor %}

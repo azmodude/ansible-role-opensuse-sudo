@@ -1,0 +1,22 @@
+---
+- name: Create dropin files in sudoers.d
+  template:
+    src: dropin.j2
+    dest: /etc/sudoers.d/dropin
+    owner: root
+    group: root
+    mode: 0700
+  loop:
+    - sudoers
+
+- name: Remove default entries asking for root password
+  lineinfile:
+    path: /etc/sudoers
+    state: absent
+    regexp: "{{ item }}"
+    validate: /usr/sbin/visudo -cf %s
+    backup: true
+  loop:
+    - "^Defaults targetpw.*"
+    - "^ALL\\s+ALL=\\(ALL\\)\\s+ALL.*"
+
