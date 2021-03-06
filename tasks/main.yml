@@ -8,6 +8,7 @@
     mode: 0700
   loop:
     - sudoers
+  become: true
 
 - name: Remove default entries asking for root password
   lineinfile:
@@ -19,4 +20,5 @@
   loop:
     - "^Defaults targetpw.*"
     - "^ALL\\s+ALL=\\(ALL\\)\\s+ALL.*"
+  become: true
 
